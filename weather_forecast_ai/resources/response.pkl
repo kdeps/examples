@@ -1,0 +1,67 @@
+amends "package://schema.kdeps.com/core@0.1.46#/Resource.pkl"
+
+id = "apiResponse"
+name = "API Response Resource"
+description = "This resource provides a JSON response through the API."
+category = ""
+
+// Define the ID of any dependency resource that must be executed before this resource.
+// For example "aiChatResource1"
+requires {
+        "llmWeatherReport"
+        "llmHistoricalAverages"
+        "llmTourism"
+        "llmTravel"
+        "llmHealth"
+        "llmLocalInsights"
+        "llmFitness"
+        "llmActivities"
+        "llmUtility"
+        "llmDining"
+}
+
+run {
+        skipCondition {
+                // Conditions under which the execution of this resource should be skipped.
+                // If any evaluated condition returns true, the resource execution will be bypassed.
+        }
+        preflightCheck {
+                validations {
+                        // This section expects boolean validations.
+                        // If any validation returns false, an exception will be thrown before proceeding to the next step.
+                }
+                // Custom error message and code to be used if the preflight check fails.
+                error {
+                        code = 0
+                        message = ""
+                }
+        }
+
+        local jsonResponseMapping = new Mapping {
+                ["weather"] = "1@(llm.response("llmWeatherReport"))"
+                ["historical_averages"] = "@(llm.response("llmHistoricalAverages"))"
+                ["tourism_insights"] = "@(llm.response("llmTourism"))"
+                ["travel_tips"] = "@(llm.response("llmTravel"))"
+                ["health_advice"] = "@(llm.response("llmHealth"))"
+                ["local_insights"] = "@(llm.response("llmLocalInsights"))"
+                ["fitness_options"] = "@(llm.response("llmFitness"))"
+                ["activities"] = "@(llm.response("llmActivities"))"
+                ["utilities_info"] = "@(llm.response("llmUtility"))"
+                ["dining_recommendations"] = "@(llm.response("llmDining"))"
+        }
+
+        apiResponse {
+                success = true
+                response {
+                        data {
+                                jsonResponseMapping
+                        }
+                }
+                errors {
+                        new {
+                                code = 0
+                                message = ""
+                        }
+                }
+        }
+}
