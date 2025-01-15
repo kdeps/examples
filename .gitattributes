@@ -1,0 +1,16 @@
+# linguist-generated would suppress files in diffs
+**/src/test/files/** linguist-vendored
+
+/docs/** linguist-documentation
+
+*.pcf linguist-language=Pkl
+PklProject linguist-language=Pkl
+
+* text eol=lf
+*.bat text eol=crlf
+
+*.gif binary
+*.jar binary
+*.woff2 binary
+*.pem binary
+*.png binary
