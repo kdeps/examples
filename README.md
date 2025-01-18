@@ -114,7 +114,7 @@ And outputs:
 
 This image:
 
-![A red panda holding a balloon]("/assets/redpanda.png")
+![A red panda holding a balloon](/assets/redpanda.png)
 
 ---
 
