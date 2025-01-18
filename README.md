@@ -91,6 +91,31 @@ your Hugging Face token (`HF_TOKEN`). It uses request parameters to pass input v
 curl "http://localhost:3000/api/v1/imagegen?q=A+red+panda+holding+a+balloon"
 ```
 
+And outputs:
+
+```json
+{
+  "errors": [
+    {
+      "code": 0,
+      "message": ""
+    }
+  ],
+  "response": {
+    "data": [
+      {
+        "file": "data:image/png;base64,iVBORw0KG...",
+      }
+    ]
+  },
+  "success": true
+}
+```
+
+This image:
+
+![A red panda holding a balloon]("/assets/redpanda.png")
+
 ---
 
 ## How to Run
