@@ -1,6 +1,6 @@
-amends "package://schema.kdeps.com/core@0.1.46#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
 
-id = "apiResponse"
+actionID = "APIResponse"
 name = "API Response Resource"
 description = "This resource provides a JSON response through the API."
 category = ""
@@ -37,7 +37,7 @@ run {
                 }
         }
 
-        local jsonResponseMapping = new Mapping {
+        local JSONResponseMapping = new Mapping {
                 ["weather"] = "1@(llm.response("llmWeatherReport"))"
                 ["historical_averages"] = "@(llm.response("llmHistoricalAverages"))"
                 ["tourism_insights"] = "@(llm.response("llmTourism"))"
@@ -50,11 +50,11 @@ run {
                 ["dining_recommendations"] = "@(llm.response("llmDining"))"
         }
 
-        apiResponse {
+        APIResponse {
                 success = true
                 response {
                         data {
-                                jsonResponseMapping
+                                JSONResponseMapping
                         }
                 }
                 errors {

@@ -1,6 +1,6 @@
-amends "package://schema.kdeps.com/core@0.1.46#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
 
-id = "llmOutput"
+actionID = "llmOutput"
 name = "AI Helper for Output"
 description = "An AI helper to parse all output into structured data"
 category = ""
@@ -61,11 +61,11 @@ run {
                 """
 
                 // Specify if the LLM response should be a structured JSON
-                jsonResponse = true
+                JSONResponse = true
 
-                // If jsonResponse is true, then the structured JSON data will need to have the
+                // If JSONResponse is true, then the structured JSON data will need to have the
                 // following keys.
-                jsonResponseKeys {}
+                JSONResponseKeys {}
 
                 // Specify the files that this LLM will process.
                 files {
@@ -73,6 +73,6 @@ run {
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the llm session.
-                timeoutSeconds = 60
+                timeoutDuration = 60
         }
 }

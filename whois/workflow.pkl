@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.1.46#/Workflow.pkl"
+amends "package://schema.kdeps.com/core@0.2.2#/Workflow.pkl"
 
 name = "whois"
 description = "My AI Agent"
@@ -14,7 +14,7 @@ version = "1.0.0"
 
 // This section defines the default resource action that will be executed
 // when this API resource is called.
-action = "responseResource"
+targetActionID = "responseResource"
 
 // Specify any external resources to use in this AI Agent.
 // For example, you can refer to another agent with "@agentName".
@@ -118,7 +118,7 @@ settings {
                 }
 
                 // The Ollama image tag version to be used as a base Docker image for this AI agent.
-                ollamaImageTag = "0.5.4"
+                ollamaImageTag = "0.5.7"
 
                 // A mapping of build argument variable names.
                 args {}

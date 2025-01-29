@@ -1,6 +1,6 @@
-amends "package://schema.kdeps.com/core@0.1.46#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
 
-id = "httpClient"
+actionID = "HTTPClient"
 name = "HTTP Client for the Weather API"
 description = "This resource allows for making API requests to the Weather API."
 category = ""
@@ -11,7 +11,7 @@ run {
         skipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
-                // "@(request.path)" != "/api/v1/whois" && "@(request.method)" != "GET"
+                // "@(request.path)" != "/API/v1/whois" && "@(request.method)" != "GET"
         }
         preflightCheck {
                 validations {
@@ -44,18 +44,18 @@ run {
         //
         // Note: Each resource is restricted to a single dedicated action. Combining multiple
         // actions within the same resource is not allowed.
-        local jsonPath = "@(llm.file("llmInput"))"
+        local JSONPath = "@(llm.file("llmInput"))"
 
-        local jsonData = "@(read?("\(jsonPath)")?.text)"
+        local JSONData = "@(read?("\(JSONPath)")?.text)"
 
-        httpClient {
+        HTTPClient {
                 method = "GET"
-                url = "https://api.open-meteo.com/v1/forecast"
+                url = "https://API.open-meteo.com/v1/forecast"
                 data {}
                 params {
-                        ["latitude" ] = "@(document.jsonParser(jsonData)?.latitude_str)"
-                        ["longitude"] = "@(document.jsonParser(jsonData)?.longitude_str)"
-                        ["timezone "] = "@(document.jsonParser(jsonData)?.timezone_str)"
+                        ["latitude" ] = "@(document.JSONParser(JSONData)?.latitude_str)"
+                        ["longitude"] = "@(document.JSONParser(JSONData)?.longitude_str)"
+                        ["timezone "] = "@(document.JSONParser(JSONData)?.timezone_str)"
                         ["current_weather"] = "true"
                         ["forecast_days"] = "1"
                         ["hourly"] = "temperature_2m,precipitation,wind_speed_10m"
@@ -65,6 +65,6 @@ run {
                         // Headers to be included in the HTTP request.
                 }
                 // Timeout duration in seconds. This specifies when to terminate the request.
-                timeoutSeconds = 60
+                timeoutDuration = 60
         }
 }

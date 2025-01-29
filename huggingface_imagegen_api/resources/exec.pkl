@@ -1,6 +1,6 @@
-amends "package://schema.kdeps.com/core@0.1.46#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
 
-id = "execResource"
+actionID = "execResource"
 name = "Exec Resource"
 description = "This resource creates a shell session."
 category = ""
@@ -48,8 +48,8 @@ run {
         // The "@(...)" syntax enables lazy evaluation, ensuring that values are
         // retrieved only after the result is ready.
         //
-        // Note: Each resource is restricted to a single dedicated action. Combining multiple
-        // actions within the same resource is not allowed.
+        // Note: Each resource is restricted to a single dedicated targetActionID. Combining multiple
+        // targetActionIDs within the same resource is not allowed.
         exec {
                 command =
 """
@@ -62,6 +62,6 @@ huggingface-cli download stabilityai/stable-diffusion-xl-base-1.0
                         ["HF_HOME"] = read("env:HF_HOME")
                 }
                 // Timeout duration in seconds. This specifies when to terminate the shell exec.
-                timeoutSeconds = 0
+                timeoutDuration = 0
         }
 }

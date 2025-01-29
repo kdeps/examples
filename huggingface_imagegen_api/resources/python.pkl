@@ -1,6 +1,6 @@
-amends "package://schema.kdeps.com/core@0.1.46#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
 
-id = "pythonResource"
+actionID = "pythonResource"
 name = "Python Resource"
 description = "This resource creates a python script session."
 category = ""
@@ -49,10 +49,10 @@ run {
         // The "@(...)" syntax enables lazy evaluation, ensuring that values are
         // retrieved only after the result is ready.
         //
-        // Note: Each resource is restricted to a single dedicated action. Combining multiple
-        // actions within the same resource is not allowed.
+        // Note: Each resource is restricted to a single dedicated targetActionID. Combining multiple
+        // targetActionIDs within the same resource is not allowed.
 
-        local pythonScriptPath = "@(data.filepath("sd35api/1.0.0", "sdxl_base_1_0.py"))"
+        local pythonScriptPath = "@(data.filepath("huggingface_imagegen_api/1.0.0", "sdxl_base_1_0.py"))"
         local pythonScript = "@(read?("\(pythonScriptPath)")?.text)"
 
         python {
@@ -71,6 +71,6 @@ run {
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the shell exec.
-                timeoutSeconds = 0
+                timeoutDuration = 0
         }
 }

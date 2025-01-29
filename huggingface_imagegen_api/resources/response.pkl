@@ -1,6 +1,6 @@
-amends "package://schema.kdeps.com/core@0.1.46#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
 
-id = "responseResource"
+actionID = "responseResource"
 name = "API Response Resource"
 description = "This resource creates a API response."
 category = ""
@@ -28,9 +28,9 @@ run {
                 }
         }
 
-        // Initializes an api response for this agent.
+        // Initializes an API response for this agent.
         //
-        // This resource action is straightforward. It
+        // This resource targetActionID is straightforward. It
         // creates a JSON response with the following shape
         //
         // {
@@ -50,7 +50,7 @@ run {
                 ["file"] = "data:image/png;base64,\(generatedFileBase64)"
         }
 
-        apiResponse {
+        APIResponse {
                 success = true
                 response {
                         data {
@@ -59,8 +59,8 @@ run {
                 }
                 errors {
                         new {
-                                code = 0
-                                message = ""
+                               code = 0
+                               message = ""
                         }
                 }
         }

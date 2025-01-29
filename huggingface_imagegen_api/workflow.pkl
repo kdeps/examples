@@ -1,6 +1,6 @@
-amends "package://schema.kdeps.com/core@0.1.46#/Workflow.pkl"
+amends "package://schema.kdeps.com/core@0.2.2#/Workflow.pkl"
 
-name = "sd35api"
+name = "huggingface_imagegen_api"
 description = "AI Image Generation API"
 website = ""
 authors {}
@@ -12,9 +12,9 @@ agentIcon = ""
 // Version is Required
 version = "1.0.0"
 
-// This section defines the default resource action that will be executed
+// This section defines the default resource targetActionID that will be executed
 // when this API resource is called.
-action = "responseResource"
+targetActionID = "responseResource"
 
 // Specify any external resources to use in this AI Agent.
 // For example, you can refer to another agent with "@agentName".
@@ -24,7 +24,7 @@ settings {
         // When set to false, the agent runs in standalone mode, executing once
         // when the Docker container starts and then stops after all resources
         // have been processed.
-        apiServerMode = true
+        APIServerMode = true
 
         // The API server block contains settings related to the API configuration.
         //
@@ -53,17 +53,17 @@ settings {
         //
         // The "@(...)" syntax enables lazy evaluation, ensuring that values are
         // retrieved only after the result is ready.
-        apiServer {
+        APIServer {
                 // Set the host IP address and port number for the AI Agent.
                 hostIP = "127.0.0.1"
                 portNum = 3000
 
                 // You can define multiple routes for this agent. Each route points to
-                // the main action specified in the action setting, so you must define
+                // the main targetActionID specified in the targetActionID setting, so you must define
                 // your skip condition on the resources appropriately.
                 routes {
                         new {
-                                path = "/api/v1/imagegen"
+                                path = "/API/v1/imagegen"
                                 methods {
                                         "GET" // Allows submitting data
                                 }
@@ -123,7 +123,7 @@ settings {
                 }
 
                 // The Ollama image tag version to be used as a base Docker image for this AI agent.
-                ollamaImageTag = "0.5.4"
+                ollamaImageTag = "0.5.7"
 
                 // A mapping of build argument variable names.
                 args {

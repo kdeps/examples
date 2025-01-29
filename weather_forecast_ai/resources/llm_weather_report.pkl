@@ -1,11 +1,11 @@
-amends "package://schema.kdeps.com/core@0.1.46#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
 
-id = "llmWeatherReport"
+actionID = "llmWeatherReport"
 name = "AI Helper for Output"
 description = "An AI helper to generate a polished output using LLM."
 category = ""
 requires {
-        "httpClient"
+        "HTTPClient"
 }
 run {
         skipCondition {
@@ -51,15 +51,15 @@ run {
                 based on the provided input. Just plain text. New lines and line breaks are not allowed. Avoid any
                 technical or structural descriptions of the JSON object. The JSON data is as follows:
 
-                @(client.responseBody("httpClient"))
+                @(client.responseBody("HTTPClient"))
                 """
 
                 // Specify if the LLM response should be a structured JSON
-                jsonResponse = false
+                JSONResponse = false
 
-                // If jsonResponse is true, then the structured JSON data will need to have the
+                // If JSONResponse is true, then the structured JSON data will need to have the
                 // following keys.
-                jsonResponseKeys {}
+                JSONResponseKeys {}
 
                 // Specify the files that this LLM will process.
                 files {
@@ -67,6 +67,6 @@ run {
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the llm session.
-                timeoutSeconds = 60
+                timeoutDuration = 60
         }
 }

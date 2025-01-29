@@ -1,6 +1,6 @@
-amends "package://schema.kdeps.com/core@0.1.46#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
 
-id = "llmInput"
+actionID = "llmInput"
 name = "AI Helper for Input"
 description = "An AI helper to parse input into structured data"
 category = ""
@@ -48,11 +48,11 @@ run {
                 """
 
                 // Specify if the LLM response should be a structured JSON
-                jsonResponse = true
+                JSONResponse = true
 
-                // If jsonResponse is true, then the structured JSON data will need to have the
+                // If JSONResponse is true, then the structured JSON data will need to have the
                 // following keys.
-                jsonResponseKeys {
+                JSONResponseKeys {
                         "longitude_str"
                         "latitude_str"
                         "timezone_str"
@@ -64,6 +64,6 @@ run {
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the llm session.
-                timeoutSeconds = 60
+                timeoutDuration = 60
         }
 }
