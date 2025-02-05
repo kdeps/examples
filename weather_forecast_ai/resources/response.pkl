@@ -38,7 +38,7 @@ run {
         }
 
         local JSONResponseMapping = new Mapping {
-                ["weather"] = "1@(llm.response("llmWeatherReport"))"
+                ["weather"] = "@(llm.response("llmWeatherReport"))"
                 ["historical_averages"] = "@(llm.response("llmHistoricalAverages"))"
                 ["tourism_insights"] = "@(llm.response("llmTourism"))"
                 ["travel_tips"] = "@(llm.response("llmTravel"))"

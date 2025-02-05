@@ -2,6 +2,41 @@
 
 This repository features a growing collection of example projects built with Kdeps, including:
 
+## **ai_ocr_api**
+An API that combines Tesseract (images) or Poppler-utils (PDF) and LLM to create a JSON response. To interact with the API using
+`curl`, run:
+
+```shell
+curl 'http://localhost:3000/api/v1/ocr' -X POST -F "file[]=@assets/testocr.png"
+```
+
+And outputs:
+
+```json
+{
+  "errors": null,
+  "response": {
+    "data": [
+      {
+        "document_category": "test_document",
+        "document_object": {
+          "text": [
+            "This is a lot of 12 point text to test the ocr code and see if it works on all types of file format.",
+            "The quick brown dog jumped over the lazy fox. The quick brown dog jumped over the lazy fox. The quick brown dog jumped over the lazy fox. The quick brown dog jumped over the lazy fox."
+          ]
+        },
+        "document_type": "text"
+      }
+    ]
+  },
+  "success": true
+}
+```
+
+This image:
+
+![A red panda holding a balloon](/assets/redpanda.png)
+
 ## **weather_forecast_api**
 A Weather Forecast API that connects to an external provider (https://open-meteo.com) to fetch weather data. It uses
 request parameters to pass input values. To interact with the API using `curl`, run:
