@@ -33,9 +33,9 @@ And outputs:
 }
 ```
 
-This image:
+This is the test image:
 
-![A red panda holding a balloon](/assets/redpanda.png)
+![OCR test image](/assets/testocr.png)
 
 ## **weather_forecast_api**
 A Weather Forecast API that connects to an external provider (https://open-meteo.com) to fetch weather data. It uses
