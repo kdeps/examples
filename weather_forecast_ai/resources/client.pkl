@@ -11,7 +11,7 @@ run {
         skipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
-                // "@(request.path)" != "/API/v1/whois" && "@(request.method)" != "GET"
+                // "@(request.path)" != "/api/v1/whois" && "@(request.method)" != "GET"
         }
         preflightCheck {
                 validations {
@@ -50,7 +50,7 @@ run {
 
         HTTPClient {
                 method = "GET"
-                url = "https://API.open-meteo.com/v1/forecast"
+                url = "https://api.open-meteo.com/v1/forecast"
                 data {}
                 params {
                         ["latitude" ] = "@(document.JSONParser(JSONData)?.latitude_str)"

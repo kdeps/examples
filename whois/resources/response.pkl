@@ -1,6 +1,6 @@
 amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
 
-id = "responseResource"
+actionID = "responseResource"
 name = "API Response Resource"
 description = "This resource creates a API response."
 category = ""
@@ -47,7 +47,7 @@ run {
         //   }]
         // }
         //
-        apiResponse {
+        APIResponse {
                 success = true
                 response {
                         data {

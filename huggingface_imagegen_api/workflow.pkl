@@ -63,7 +63,7 @@ settings {
                 // your skip condition on the resources appropriately.
                 routes {
                         new {
-                                path = "/API/v1/imagegen"
+                                path = "/api/v1/imagegen"
                                 methods {
                                         "GET" // Allows submitting data
                                 }
