@@ -18,14 +18,13 @@ And outputs:
   "response": {
     "data": [
       {
-        "document_category": "test_document",
-        "document_object": {
-          "text": [
-            "This is a lot of 12 point text to test the ocr code and see if it works on all types of file format.",
-            "The quick brown dog jumped over the lazy fox. The quick brown dog jumped over the lazy fox. The quick brown dog jumped over the lazy fox. The quick brown dog jumped over the lazy fox."
-          ]
-        },
-        "document_type": "text"
+        "document_category": "Sample Text",
+        "document_description": "Testing OCR code with a sample text document.",
+        "document_text_array": [
+          "This is a lot of 12 point text to test the ocr code and see if it works on all types of file format.",
+          "The quick brown dog jumped over the lazy fox. The quick brown dog jumped over the lazy fox. The quick brown dog jumped over the lazy fox. The quick brown dog jumped over the lazy fox."
+        ],
+        "document_type": "Text Document"
       }
     ]
   },

@@ -59,7 +59,8 @@ run {
                 JSONResponseKeys {
                         "document_type"
                         "document_category"
-                        "document_markdown"
+                        "document_description"
+                        "document_text_array"
                 }
 
                 // Specify the files that this LLM will process.
