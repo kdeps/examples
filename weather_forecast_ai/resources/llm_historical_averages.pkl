@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.7#/Resource.pkl"
 
 actionID = "llmHistoricalAverages"
 name = "AI Helper for Output"

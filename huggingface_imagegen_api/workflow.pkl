@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.2#/Workflow.pkl"
+amends "package://schema.kdeps.com/core@0.2.7#/Workflow.pkl"
 
 name = "huggingface_imagegen_api"
 description = "AI Image Generation API"

@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.7#/Resource.pkl"
 
 actionID = "llmResource"
 name = "LLM Chat Resource"
@@ -8,8 +8,10 @@ requires {
         "execResource"
 }
 
+local requestID = "@(request.ID())"
+
 local output_file_content = """
-@(read?("file:/tmp/output.txt")?.text)
+@(read?("file:/tmp/\(requestID).txt")?.text)
 """
 
 run {

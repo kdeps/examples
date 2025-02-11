@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.2#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.7#/Resource.pkl"
 
 actionID = "execResource"
 name = "Exec Resource"
@@ -58,11 +58,10 @@ run {
         // actions within the same resource is not allowed.
         exec {
                 command = """
-                rm -rf /tmp/output.txt 2> /dev/null
                 if [[ \(filetype) == "application/pdf" ]]; then
-                  pdftotext \(input) - > /tmp/output.txt
+                  pdftotext \(input) - > /tmp/@(request.ID()).txt
                 else
-                  tesseract \(input) /tmp/output -l eng
+                  tesseract \(input) /tmp/@(request.ID()) -l eng
                 fi
                 """
                 env {}
