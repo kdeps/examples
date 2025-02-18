@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.7#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.10#/Resource.pkl"
 
 actionID = "execResource"
 name = "Exec Resource"
@@ -66,6 +66,6 @@ run {
                 """
                 env {}
                 // Timeout duration in seconds. This specifies when to terminate the shell exec.
-                timeoutDuration = 60
+                timeoutDuration = 60.s
         }
 }

@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.7#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.10#/Resource.pkl"
 
 actionID = "llmOutput"
 name = "AI Helper for Output"
@@ -73,6 +73,6 @@ run {
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the llm session.
-                timeoutDuration = 60
+                timeoutDuration = 60.s
         }
 }

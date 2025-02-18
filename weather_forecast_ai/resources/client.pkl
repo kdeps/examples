@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.7#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.10#/Resource.pkl"
 
 actionID = "HTTPClient"
 name = "HTTP Client for the Weather API"
@@ -65,6 +65,6 @@ run {
                         // Headers to be included in the HTTP request.
                 }
                 // Timeout duration in seconds. This specifies when to terminate the request.
-                timeoutDuration = 60
+                timeoutDuration = 60.s
         }
 }

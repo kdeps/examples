@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.7#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.10#/Resource.pkl"
 
 actionID = "pythonResource"
 name = "Python Resource"
@@ -69,6 +69,6 @@ if __name__ == "__main__":
                         ["ENVVAR"] = "XYZ"  // Example ENVVAR.
                 }
                 // Timeout duration in seconds. This specifies when to terminate the shell exec.
-                timeoutDuration = 60
+                timeoutDuration = 60.s
         }
 }

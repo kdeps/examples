@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.7#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.10#/Resource.pkl"
 
 actionID = "execResource"
 name = "Exec Resource"
@@ -62,6 +62,6 @@ huggingface-cli download stabilityai/stable-diffusion-xl-base-1.0
                         ["HF_HOME"] = read("env:HF_HOME")
                 }
                 // Timeout duration in seconds. This specifies when to terminate the shell exec.
-                timeoutDuration = 0
+                timeoutDuration = 0.s
         }
 }
