@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.10#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.20#/Resource.pkl"
 
 actionID = "llmActivities"
 name = "AI Helper for Output"

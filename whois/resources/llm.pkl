@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.10#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.20#/Resource.pkl"
 
 actionID = "llmResource"
 name = "LLM Chat Resource"
@@ -9,6 +9,34 @@ requires {
         // For example "@aiChatResource1"
 }
 run {
+        // restrictToHTTPMethods specifies the HTTP methods required for the request.
+        // If none are specified, all HTTP methods are permitted. This restriction is only
+        // in effect when APIServerMode is enabled. If the request method is not in this list,
+        // the action will be skipped.
+        restrictToHTTPMethods {
+            "GET"
+        }
+
+        // restrictToRoutes specifies the URL paths required for the request.
+        // If none are specified, all routes are permitted. This restriction is only
+        // in effect when APIServerMode is enabled. If the request path is not in this list,
+        // the action will be skipped.
+        restrictToRoutes {
+            "/api/v1/whois"
+        }
+
+        // allowedHeaders specifies the permitted HTTP headers for the request.
+        // If none are specified, all headers are allowed. This restriction is only
+        // in effect when APIServerMode is enabled.
+        allowedHeaders {
+            // "X-API-KEY"
+        }
+
+        // allowedParams specifies the permitted query parameters for the request.
+        // If none are specified, all parameters are allowed. This restriction is only
+        // in effect when APIServerMode is enabled.
+        allowedParams {}
+
         skipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
@@ -43,8 +71,25 @@ run {
         // Note: Each resource is restricted to a single dedicated action. Combining multiple
         // actions within the same resource is not allowed.
         chat {
-                model = "llama3.1" // This LLM model needs to be defined in the workflow
+                model = "llama3.2:1b" // This LLM model needs to be defined in the workflow
+
+                // The dedicated prompt and role can be sent to the LLM, or use the scenario block.
+                // This LLM role context for this prompt. For example, "user", "assistant" or "system".
+                // If none is provided, "human" will be used.
+                role = "user"
                 prompt = "Who is @(request.data())?"
+
+                // Scenario block can take multiple prompts and roles to be added to this LLM session.
+                scenario {
+                        new {
+                                role = "assistant"
+                                prompt = "You are a helpful and informative AI assistant that specializes in general knowledge."
+                        }
+                        new {
+                                role = "system"
+                                prompt = "Ensure responses are concise and accurate, prioritizing user satisfaction."
+                        }
+                }
 
                 // Specify if the LLM response should be a structured JSON
                 JSONResponse = true

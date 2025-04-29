@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.10#/Workflow.pkl"
+amends "package://schema.kdeps.com/core@0.2.20#/Workflow.pkl"
 
 name = "ai_ocr_api"
 description = "My AI Agent"
