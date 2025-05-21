@@ -2,6 +2,32 @@
 
 This repository features a growing collection of example projects built with Kdeps, including:
 
+## **tools**
+An API that allows LLM to autonomously choose a tool to execute (like MCP, A2A). There is 2 python tools that are exposed to LLM in the `data/` folder.
+
+```shell
+curl 'http://localhost:3000/api/v1/tools'
+```
+
+Output:
+
+```json
+{
+  "meta": {
+    "requestID": "xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"
+  },
+  "response": {
+    "data": [
+      {
+        "final_value": "10019",
+        "number_of_tools_used": 2
+      }
+    ]
+  },
+  "success": true
+}
+```
+
 ## **ai_ocr_api**
 An API that combines Tesseract (images) or Poppler-utils (PDF) and LLM to create a JSON response. To interact with the API using
 `curl`, run:
