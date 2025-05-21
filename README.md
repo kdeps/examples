@@ -3,7 +3,7 @@
 This repository features a growing collection of example projects built with Kdeps, including:
 
 ## **tools**
-An API that allows LLM to autonomously choose a tool to execute (like MCP, A2A). There is 2 python tools that are exposed to LLM in the `data/` folder.
+An API that allows LLM to autonomously choose a tool to execute (like MCP, A2A). There is 2 python tools that are exposed to LLM in the `data/` folder. This example uses the `llama3.2` model.
 
 ```shell
 curl 'http://localhost:3000/api/v1/tools'
@@ -22,6 +22,30 @@ Output:
         "final_value": "10019",
         "number_of_tools_used": 2
       }
+    ]
+  },
+  "success": true
+}
+```
+
+## **vision**
+An API that uses LLM Vision model. It accepts the prompt via a param `q`. This example uses `moondream:1.8b` vision model.
+NOTE: If you need to specify `JSONResponseKeys`, please use a more capable model. i.e. llama.
+
+```shell
+curl 'http://localhost:3000/api/v1/vision?q=What%20is%20this%20image?' -X POST -F "file[]=@assets/redpanda_small.png"
+```
+
+Output:
+
+```json
+{
+  "meta": {
+    "requestID": "xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"
+  },
+  "response": {
+    "data": [
+      "The image features a small red panda sitting on the ground, holding a pink balloon with its paws. The panda appears to be enjoying itself as it holds onto the balloon, which is positioned above its head."
     ]
   },
   "success": true
