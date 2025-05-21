@@ -132,7 +132,7 @@ settings {
 
                 // A mapping of environment variable names for the build that persist in both the image and the container.
                 env {
-                        ["HF_HOME"] = "/root/.kdeps/huggingface"
+                        ["HF_HOME"] = "/.kdeps//huggingface"
                 }
         }
 }

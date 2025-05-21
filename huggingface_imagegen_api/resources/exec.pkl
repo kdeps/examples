@@ -9,7 +9,7 @@ requires {
 }
 run {
         skipCondition {
-                "@(skip.ifFolderExists("file:/root/.kdeps/huggingface"))"
+                "@(skip.ifFolderExists("file:/.kdeps//huggingface"))"
         }
         preflightCheck {
                 validations {
