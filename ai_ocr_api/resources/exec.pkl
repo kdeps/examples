@@ -1,23 +1,23 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "execResource"
-name = "Exec Resource"
-description = "This resource creates a shell session."
-category = ""
-requires {
+ActionID = "execResource"
+Name = "Exec Resource"
+Description = "This resource creates a shell session."
+Category = ""
+Requires {
         // Define the ID of any dependency resource that must be executed before this resource.
 }
 
 local input = "@(request.files()[0])"
 local filetype = "@(request.filetypes()[0])"
 
-run {
-        skipCondition {
+Run {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
         }
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         filetype == "application/pdf" || filetype == "image/png" || filetype == "image/jpeg"
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
@@ -27,9 +27,9 @@ run {
                         // read("file:/agent/workflow/data/%s/1.0.0/file.txt").text != "" && read("file:/agent/workflow/data/%s/1.0.0/file.txt").base64 != ""
                 }
                 // Custom error message and code to be used if the preflight check fails.
-                error {
-                        code = 500
-                        message = "Filetype \(filetype) unsupported!"
+                Error {
+                        Code = 500
+                        Message = "Filetype \(filetype) unsupported!"
                 }
         }
 
@@ -56,16 +56,16 @@ run {
         //
         // Note: Each resource is restricted to a single dedicated action. Combining multiple
         // actions within the same resource is not allowed.
-        exec {
-                command = """
+        Exec {
+                Command = """
                 if [[ \(filetype) == "application/pdf" ]]; then
                   pdftotext \(input) - > /tmp/@(request.ID()).txt
                 else
                   tesseract \(input) /tmp/@(request.ID()) -l eng
                 fi
                 """
-                env {}
+                Env {}
                 // Timeout duration in seconds. This specifies when to terminate the shell exec.
-                timeoutDuration = 60.s
+                TimeoutDuration = 60.s
         }
 }

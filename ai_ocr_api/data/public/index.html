@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OCR Image Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fafafa;
+    }
+    h2, h3 {
+      color: #333;
+    }
+    img {
+      max-width: 100%;
+      margin: 1rem 0;
+      display: block;
+    }
+    pre {
+      background: #f0f0f0;
+      padding: 1rem;
+      border-radius: 5px;
+      white-space: pre-wrap;
+    }
+    #uploadBtn {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>Upload an Image for OCR</h2>
+
+  <input type="file" id="imageInput" accept="image/*">
+  <img id="preview" hidden>
+
+  <button id="uploadBtn">Upload and Process</button>
+
+  <h3>OCR Response</h3>
+  <pre id="ocrResult">No result yet.</pre>
+
+  <script>
+    const imageInput = document.getElementById('imageInput');
+    const preview = document.getElementById('preview');
+    const ocrResult = document.getElementById('ocrResult');
+    const uploadBtn = document.getElementById('uploadBtn');
+
+    imageInput.addEventListener('change', () => {
+      const file = imageInput.files[0];
+      if (!file || !file.type.startsWith('image/')) {
+        alert('Only image files are allowed.');
+        imageInput.value = '';
+        preview.hidden = true;
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        preview.src = e.target.result;
+        preview.hidden = false;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    uploadBtn.addEventListener('click', async () => {
+      const file = imageInput.files[0];
+      if (!file) {
+        alert('Please select an image file first.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('file[]', file);
+
+      ocrResult.textContent = 'Processing...';
+
+      try {
+        const response = await fetch('http://localhost:3000/api/v1/ocr', {
+          method: 'POST',
+          body: formData
+        });
+
+        console.log('Status:', response.status);
+        const rawText = await response.text();
+        console.log('Raw Response:', rawText);
+
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+
+        let data;
+        try {
+          data = JSON.parse(rawText);
+        } catch (jsonError) {
+          throw new Error('Failed to parse JSON: ' + jsonError.message);
+        }
+
+        const doc = data?.response?.data?.[0];
+
+        if (!data.success || !doc) {
+          throw new Error('Unexpected response format or OCR failed.');
+        }
+
+        const { document_type, document_category, document_description, document_text_array } = doc;
+
+        ocrResult.textContent = `
+Document Type: ${document_type}
+Category: ${document_category}
+Description: ${document_description}
+
+Text Content:
+${document_text_array.join('\n\n')}
+        `.trim();
+
+      } catch (err) {
+        console.error('Upload/Parse error:', err);
+        ocrResult.textContent = 'An error occurred: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
+

@@ -53,7 +53,14 @@ Output:
 ```
 
 ## **ai_ocr_api**
-An API that combines Tesseract (images) or Poppler-utils (PDF) and LLM to create a JSON response. To interact with the API using
+An API that combines Tesseract (images) or Poppler-utils (PDF) and LLM to create a JSON response. 
+This example contains both Web interface and API.
+
+To interact with the Web interface, visit `http://localhost:8080`.
+
+![Web interface](/assets/web_ai_ocr_api.png)
+
+To interact with the API using
 `curl`, run:
 
 ```shell

@@ -1,10 +1,10 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "llmResource"
-name = "LLM Chat Resource"
-description = "This resource creates a LLM chat session."
-category = ""
-requires {
+ActionID = "llmResource"
+Name = "LLM Chat Resource"
+Description = "This resource creates a LLM chat session."
+Category = ""
+Requires {
         "execResource"
 }
 
@@ -14,21 +14,21 @@ local output_file_content = """
 @(read?("file:/tmp/\(requestID).txt")?.text)
 """
 
-run {
-        skipCondition {
+Run {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
         }
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         output_file_content.length != 0
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                 }
                 // Custom error message and code to be used if the preflight check fails.
-                error {
-                        code = 0
-                        message = "Empty document received!"
+                Error {
+                        Code = 0
+                        Message = "Empty document received!"
                 }
         }
 
@@ -49,9 +49,9 @@ run {
         //
         // Note: Each resource is restricted to a single dedicated action. Combining multiple
         // actions within the same resource is not allowed.
-        chat {
-                model = "llama3.1" // This LLM model needs to be defined in the workflow
-                prompt = "\(output_file_content)"
+        Chat {
+                Model = "llama3.1" // This LLM model needs to be defined in the workflow
+                Prompt = "\(output_file_content)"
 
                 // Specify if the LLM response should be a structured JSON
                 JSONResponse = true
@@ -66,11 +66,11 @@ run {
                 }
 
                 // Specify the files that this LLM will process.
-                files {
+                Files {
                         // "@(request.files()[0])"
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the llm session.
-                timeoutDuration = 60.s
+                TimeoutDuration = 60.s
         }
 }
