@@ -1,19 +1,19 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "llmResource"
-name = "LLM Chat Resource"
-description = "This resource creates a LLM chat session."
-category = ""
-requires {
+ActionID = "llmResource"
+Name = "LLM Chat Resource"
+Description = "This resource creates a LLM chat session."
+Category = ""
+Requires {
         // Define the ID of any dependency resource that must be executed before this resource.
         // For example "@aiChatResource1"
 }
-run {
+Run {
         // restrictToHTTPMethods specifies the HTTP methods required for the request.
         // If none are specified, all HTTP methods are permitted. This restriction is only
         // in effect when APIServerMode is enabled. If the request method is not in this list,
         // the action will be skipped.
-        restrictToHTTPMethods {
+        RestrictToHTTPMethods {
             "GET"
         }
 
@@ -21,35 +21,35 @@ run {
         // If none are specified, all routes are permitted. This restriction is only
         // in effect when APIServerMode is enabled. If the request path is not in this list,
         // the action will be skipped.
-        restrictToRoutes {
+        RestrictToRoutes {
             "/api/v1/whois"
         }
 
         // allowedHeaders specifies the permitted HTTP headers for the request.
         // If none are specified, all headers are allowed. This restriction is only
         // in effect when APIServerMode is enabled.
-        allowedHeaders {
+        AllowedHeaders {
             // "X-API-KEY"
         }
 
         // allowedParams specifies the permitted query parameters for the request.
         // If none are specified, all parameters are allowed. This restriction is only
         // in effect when APIServerMode is enabled.
-        allowedParams {}
+        AllowedParams {}
 
-        skipCondition {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
         }
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                 }
                 // Custom error message and code to be used if the preflight check fails.
-                error {
-                        code = 0
-                        message = ""
+                Error {
+                        Code = 0
+                        Message = ""
                 }
         }
 
@@ -70,24 +70,24 @@ run {
         //
         // Note: Each resource is restricted to a single dedicated action. Combining multiple
         // actions within the same resource is not allowed.
-        chat {
-                model = "llama3.2:1b" // This LLM model needs to be defined in the workflow
+        Chat {
+                Model = "llama3.2:1b" // This LLM model needs to be defined in the workflow
 
                 // The dedicated prompt and role can be sent to the LLM, or use the scenario block.
                 // This LLM role context for this prompt. For example, "user", "assistant" or "system".
                 // If none is provided, "human" will be used.
-                role = "user"
-                prompt = "Who is @(request.data())?"
+                Role = "user"
+                Prompt = "Who is @(request.data())?"
 
                 // Scenario block can take multiple prompts and roles to be added to this LLM session.
-                scenario {
+                Scenario {
                         new {
-                                role = "assistant"
-                                prompt = "You are a helpful and informative AI assistant that specializes in general knowledge."
+                                Role = "assistant"
+                                Prompt = "You are a helpful and informative AI assistant that specializes in general knowledge."
                         }
                         new {
-                                role = "system"
-                                prompt = "Ensure responses are concise and accurate, prioritizing user satisfaction."
+                                Role = "system"
+                                Prompt = "Ensure responses are concise and accurate, prioritizing user satisfaction."
                         }
                 }
 
@@ -97,20 +97,19 @@ run {
                 // If JSONResponse is true, then the structured JSON data will need to have the
                 // following keys.
                 JSONResponseKeys {
-                        "first_name"
-                        "last_name"
-                        "parents"
-                        "address"
-                        "famous_quotes"
-                        "known_for"
+                        "name__string"
+                        "introduction__string"
+                        "bio__string"
+                        "famous_quotes__array"
+                        "known_for__array"
                 }
 
                 // Specify the files that this LLM will process.
-                files {
+                Files {
                         // "@(request.files()[0])"
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the llm session.
-                timeoutDuration = 60.s
+                TimeoutDuration = 60.s
         }
 }

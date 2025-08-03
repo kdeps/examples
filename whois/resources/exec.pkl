@@ -1,18 +1,18 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "execResource"
-name = "Exec Resource"
-description = "This resource creates a shell session."
-category = ""
-requires {
+ActionID = "execResource"
+Name = "Exec Resource"
+Description = "This resource creates a shell session."
+Category = ""
+Requires {
         // Define the ID of any dependency resource that must be executed before this resource.
 }
-run {
+Run {
         // restrictToHTTPMethods specifies the HTTP methods required for the request.
         // If none are specified, all HTTP methods are permitted. This restriction is only
         // in effect when APIServerMode is enabled. If the request method is not in this list,
         // the action will be skipped.
-        restrictToHTTPMethods {
+        RestrictToHTTPMethods {
             "GET"
         }
 
@@ -20,28 +20,28 @@ run {
         // If none are specified, all routes are permitted. This restriction is only
         // in effect when APIServerMode is enabled. If the request path is not in this list,
         // the action will be skipped.
-        restrictToRoutes {
+        RestrictToRoutes {
             "/api/v1/whois"
         }
 
         // allowedHeaders specifies the permitted HTTP headers for the request.
         // If none are specified, all headers are allowed. This restriction is only
         // in effect when APIServerMode is enabled.
-        allowedHeaders {
+        AllowedHeaders {
             // "X-API-KEY"
         }
 
         // allowedParams specifies the permitted query parameters for the request.
         // If none are specified, all parameters are allowed. This restriction is only
         // in effect when APIServerMode is enabled.
-        allowedParams {}
+        AllowedParams {}
 
-        skipCondition {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
         }
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                         //
@@ -50,9 +50,9 @@ run {
                         // read("file:/agent/workflow/data/%s/1.0.0/file.txt").text != "" && read("file:/agent/workflow/data/%s/1.0.0/file.txt").base64 != ""
                 }
                 // Custom error message and code to be used if the preflight check fails.
-                error {
-                        code = 500
-                        message = "Data file file.txt not found!"
+                Error {
+                        Code = 500
+                        Message = "Data file file.txt not found!"
                 }
         }
 
@@ -79,15 +79,15 @@ run {
         //
         // Note: Each resource is restricted to a single dedicated action. Combining multiple
         // actions within the same resource is not allowed.
-        exec {
-                command = """
+        Exec {
+                Command = """
                 echo "hello world"
                 """
-                env {
+                Env {
                         // Environment variables that would be accessible inside the shell
                         ["ENVVAR"] = "XYZ"  // Example ENVVAR.
                 }
                 // Timeout duration in seconds. This specifies when to terminate the shell exec.
-                timeoutDuration = 60.s
+                TimeoutDuration = 60.s
         }
 }

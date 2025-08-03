@@ -132,8 +132,14 @@ And outputs:
 ```
 
 ## **whois_api**
-An API for retrieving details about known individuals. This is the default project generated when running `kdeps
-new`. It uses request data to handle inputs. To interact with the API using `curl`, run:
+An API for retrieving details about known individuals. This is a slightly modified version of the default project generated when running `kdeps
+new`.
+
+To interact with the Web interface, visit `http://localhost:8080`.
+
+![Web interface](/assets/web_whois.png)
+
+It uses request data to handle inputs. To interact with the API using `curl`, run:
 
 ```shell
 curl 'http://localhost:3000/api/v1/whois' -X GET -d "Neil Armstrong"
