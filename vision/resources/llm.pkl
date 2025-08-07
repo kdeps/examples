@@ -1,19 +1,19 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "llmResource"
-name = "LLM Chat Resource"
-description = "This resource creates a LLM chat session."
-category = ""
-requires {
+ActionID = "llmResource"
+Name = "LLM Chat Resource"
+Description = "This resource creates a LLM chat session."
+Category = ""
+Requires {
         // Define the ID of any dependency resource that must be executed before this resource.
         // For example "@aiChatResource1"
 }
-run {
+Run {
         // restrictToHTTPMethods specifies the HTTP methods required for the request.
         // If none are specified, all HTTP methods are permitted. This restriction is only
         // in effect when APIServerMode is enabled. If the request method is not in this list,
         // the action will be skipped.
-        restrictToHTTPMethods {
+        RestrictToHTTPMethods {
             "POST"
         }
 
@@ -21,38 +21,38 @@ run {
         // If none are specified, all routes are permitted. This restriction is only
         // in effect when APIServerMode is enabled. If the request path is not in this list,
         // the action will be skipped.
-        restrictToRoutes {
+        RestrictToRoutes {
             "/api/v1/vision"
         }
 
         // allowedHeaders specifies the permitted HTTP headers for the request.
         // If none are specified, all headers are allowed. This restriction is only
         // in effect when APIServerMode is enabled.
-        allowedHeaders {
+        AllowedHeaders {
             // "X-API-KEY"
         }
 
         // allowedParams specifies the permitted query parameters for the request.
         // If none are specified, all parameters are allowed. This restriction is only
         // in effect when APIServerMode is enabled.
-        allowedParams {}
+        AllowedParams {}
 
-        skipCondition {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
         }
 
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                 }
                 //
                 // Custom error message and code to be returned immediately if the preflight check fails.
                 //
-                // error {
-                //         code = 0
-                //         message = ""
+                // Error {
+                //         Code = 0
+                //         Message = ""
                 // }
         }
 
@@ -60,7 +60,7 @@ run {
         // expressions that produce side effects, such as updating resources or triggering actions, but also supports
         // general-purpose evaluation of any valid PKL expression, making it a place for inline logic and
         // scripting within a configuration.
-        expr {
+        Expr {
                 // "@(memory.setItem("foo", "bar"))" // Persistent data
                 // "@(memory.clear())"
                 // "@(session.setItem("foo", "bar"))" // Temporary data only for this request
@@ -83,36 +83,36 @@ run {
         //
         // Note: Each resource is restricted to a single dedicated action. Combining multiple
         // actions within the same resource is not allowed.
-        chat {
-                model = "moondream:1.8b" // This LLM model needs to be defined in the workflow
+        Chat {
+                Model = "moondream:1.8b" // This LLM model needs to be defined in the workflow
 
                 // The dedicated prompt and role can be sent to the LLM, or use the scenario block.
                 // This LLM role context for this prompt. For example, "user", "assistant" or "system".
                 // If none is provided, "human" will be used.
-                role = "user"
-                prompt = "@(request.params("q"))?"
+                Role = "user"
+                Prompt = "@(request.params("q"))?"
 
                 // Scenario block can take multiple prompts and roles to be added to this LLM session.
-                scenario {
+                Scenario {
                         new {
-                                role = "assistant"
-                                prompt = "You are a helpful and informative AI assistant that specializes in general knowledge."
+                                Role = "assistant"
+                                Prompt = "You are a helpful and informative AI assistant that specializes in general knowledge."
                         }
                         // new {
-                        //         role = "system"
-                        //         prompt = "If you are unsure, please just lookup the DB."
+                        //         Role = "system"
+                        //         Prompt = "If you are unsure, please just lookup the DB."
                         // }
                 }
 
                 // Tools block enables LLMs to autonomously execute scripts and chain outputs across multiple tool calls
                 // for complex workflows.
-                tools {
+                Tools {
                         // new {
-                        //     name = "lookup_db"
-                        //     script = "@(data.filepath(\"tools/1.0.0\", \"lookup.py\"))"
-                        //     description = "Queries a database for details about a historical figure"
+                        //     Name = "lookup_db"
+                        //     Script = "@(data.filepath(\"tools/1.0.0\", \"lookup.py\"))"
+                        //     Description = "Queries a database for details about a historical figure"
                         //     parameters {
-                        //         ["name"] { required = true; type = "string"; description = "Name of the historical figure to query" }
+                        //         ["name"] { required = true; type = "string"; Description = "Name of the historical figure to query" }
                         //     }
                         // }
                 }
@@ -128,11 +128,11 @@ run {
                 }
 
                 // Specify the files that this LLM will process.
-                files {
+                Files {
                         "@(request.files()[0])"
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the llm session.
-                timeoutDuration = 300.s
+                TimeoutDuration = 300.s
         }
 }

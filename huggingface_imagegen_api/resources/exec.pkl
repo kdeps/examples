@@ -1,18 +1,18 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "execResource"
-name = "Exec Resource"
-description = "This resource creates a shell session."
-category = ""
-requires {
+ActionID = "execResource"
+Name = "Exec Resource"
+Description = "This resource creates a shell session."
+Category = ""
+Requires {
         // Define the ID of any dependency resource that must be executed before this resource.
 }
-run {
-        skipCondition {
+Run {
+        SkipCondition {
                 "@(skip.ifFolderExists("file:/.kdeps//huggingface"))"
         }
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                         //
@@ -21,9 +21,9 @@ run {
                         // read("file:/agent/workflow/data/%s/1.0.0/file.txt").text != "" && read("file:/agent/workflow/data/%s/1.0.0/file.txt").base64 != ""
                 }
                 // Custom error message and code to be used if the preflight check fails.
-                error {
-                        code = 500
-                        message = "Data file file.txt not found!"
+                Error {
+                        Code = 500
+                        Message = "Data file file.txt not found!"
                 }
         }
 
@@ -50,18 +50,18 @@ run {
         //
         // Note: Each resource is restricted to a single dedicated targetActionID. Combining multiple
         // targetActionIDs within the same resource is not allowed.
-        exec {
-                command =
+        Exec {
+                Command =
 """
 huggingface-cli login --token $HF_TOKEN
 # huggingface-cli download stabilityai/stable-diffusion-3.5-large
 huggingface-cli download stabilityai/stable-diffusion-xl-base-1.0
 """
-                env {
+                Env {
                         ["HF_TOKEN"] = read("env:HF_TOKEN")
                         ["HF_HOME"] = read("env:HF_HOME")
                 }
                 // Timeout duration in seconds. This specifies when to terminate the shell exec.
-                timeoutDuration = 0.s
+                TimeoutDuration = 0.s
         }
 }

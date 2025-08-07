@@ -1,28 +1,28 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "HTTPClient"
-name = "HTTP Client for the Weather API"
-description = "This resource allows for making API requests to the Weather API."
-category = ""
-requires {
+ActionID = "HTTPClient"
+Name = "HTTP Client for the Weather API"
+Description = "This resource allows for making API requests to the Weather API."
+Category = ""
+Requires {
         "llmInput"
 }
-run {
-        skipCondition {
+Run {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
                 // "@(request.path)" != "/api/v1/whois" && "@(request.method)" != "GET"
         }
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                         // "@(request.header("X-API-KEY"))" != ""
                 }
                 // Custom error message and code to be used if the preflight check fails.
-                error {
-                        code = 404
-                        message = "Header X-API-KEY not found in request!"
+                Error {
+                        Code = 404
+                        Message = "Header X-API-KEY not found in request!"
                 }
         }
 
@@ -49,10 +49,10 @@ run {
         local JSONData = "@(read?("\(JSONPath)")?.text)"
 
         HTTPClient {
-                method = "GET"
-                url = "https://api.open-meteo.com/v1/forecast"
-                data {}
-                params {
+                Method = "GET"
+                Url = "https://api.open-meteo.com/v1/forecast"
+                Data {}
+                Params {
                         ["latitude" ] = "@(document.JSONParser(JSONData)?.latitude_str)"
                         ["longitude"] = "@(document.JSONParser(JSONData)?.longitude_str)"
                         ["timezone "] = "@(document.JSONParser(JSONData)?.timezone_str)"
@@ -61,10 +61,10 @@ run {
                         ["hourly"] = "temperature_2m,precipitation,wind_speed_10m"
                         ["daily"] = "temperature_2m_max,temperature_2m_min,precipitation_sum"
                 }
-                headers {
+                Headers {
                         // Headers to be included in the HTTP request.
                 }
                 // Timeout duration in seconds. This specifies when to terminate the request.
-                timeoutDuration = 60.s
+                TimeoutDuration = 600.s
         }
 }

@@ -1,56 +1,56 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "llmResource"
-name = "LLM Chat Resource"
-description = "This resource creates a LLM chat session."
-category = ""
-requires {
+ActionID = "llmResource"
+Name = "LLM Chat Resource"
+Description = "This resource creates a LLM chat session."
+Category = ""
+Requires {
         // Define the ID of any dependency resource that must be executed before this resource.
         // For example "@aiChatResource1"
 }
-run {
+Run {
         // restrictToHTTPMethods specifies the HTTP methods required for the request.
         // If none are specified, all HTTP methods are permitted. This restriction is only
         // in effect when APIServerMode is enabled. If the request method is not in this list,
         // the action will be skipped.
-        restrictToHTTPMethods {
-                "GET"
+                RestrictToHTTPMethods {
+            "GET"
         }
 
-        // restrictToRoutes specifies the URL paths required for the request.
+        // RestrictToRoutes specifies the URL paths required for the request.
         // If none are specified, all routes are permitted. This restriction is only
         // in effect when APIServerMode is enabled. If the request path is not in this list,
         // the action will be skipped.
-        restrictToRoutes {
-                "/api/v1/tools"
+        RestrictToRoutes {
+            "/api/v1/tools"
         }
 
-        // allowedHeaders specifies the permitted HTTP headers for the request.
+        // AllowedHeaders specifies the permitted HTTP headers for the request.
         // If none are specified, all headers are allowed. This restriction is only
         // in effect when APIServerMode is enabled.
-        allowedHeaders {
-                // "X-API-KEY"
+        AllowedHeaders {
+            // "X-API-KEY"
         }
 
-        // allowedParams specifies the permitted query parameters for the request.
+        // AllowedParams specifies the permitted query parameters for the request.
         // If none are specified, all parameters are allowed. This restriction is only
         // in effect when APIServerMode is enabled.
-        allowedParams {}
+        AllowedParams {}
 
-        skipCondition {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
         }
 
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                 }
                 // Custom error message and code to be used if the preflight check fails.
-                error {
-                        code = 0
-                        message = ""
+                Error {
+                        Code = 0
+                        Message = ""
                 }
         }
 
@@ -58,7 +58,7 @@ run {
         // expressions that produce side effects, such as updating resources or triggering actions, but also supports
         // general-purpose evaluation of any valid PKL expression, making it a place for inline logic and
         // scripting within a configuration.
-        expr {
+        Expr {
                 // "@(memory.setItem("foo", "bar"))" // Persistent data
                 // "@(memory.clear())"
                 // "@(session.setItem("foo", "bar"))" // Temporary data only for this request
@@ -81,48 +81,48 @@ run {
         //
         // Note: Each resource is restricted to a single dedicated action. Combining multiple
         // actions within the same resource is not allowed.
-        chat {
-                model = "llama3.2" // This LLM model needs to be defined in the workflow
+        Chat {
+                Model = "llama3.2" // This LLM model needs to be defined in the workflow
 
                 // The dedicated prompt and role can be sent to the LLM, or use the scenario block.
                 // This LLM role context for this prompt. For example, "user", "assistant" or "system".
                 // If none is provided, "human" will be used.
-                role = "user"
-                prompt = "first: calculate the file lines of @(data.filepath("tools/1.0.0", "count_file_lines.py")) and then second: x it's number to 10000"
+                Role = "user"
+                Prompt = "first: calculate the file lines of @(data.filepath(\"tools/1.0.0\", \"count_file_lines.py\")) and then second: x it's number to 10000"
 
-                tools {
+                Tools {
                         // Tool 1: Add two numbers
                         new {
-                                name = "x_two_numbers"
-                                script = "@(data.filepath("tools/1.0.0", "add_two_numbers.py"))"
-                                description = "X two integers and return the new number"
-                                parameters {
-                                        ["a"] { required = true; type = "integer"; description = "The first number" }
-                                        ["b"] { required = true; type = "integer"; description = "The second number" }
+                                Name = "x_two_numbers"
+                                Script = "@(data.filepath(\"tools/1.0.0\", \"add_two_numbers.py\"))"
+                                Description = "X two integers and return the new number"
+                                Parameters {
+                                        ["a"] { Required = true; Type = "integer"; Description = "The first number" }
+                                        ["b"] { Required = true; Type = "integer"; Description = "The second number" }
                                 }
                         }
 
                         // Tool 2: Count file lines
                         new {
-                                name = "count_file_lines"
-                                script = "@(data.filepath("tools/1.0.0", "count_file_lines.py"))"
-                                description = "Count the number of lines in a file"
-                                parameters {
-                                        ["file_path"] { required = true; type = "string"; description = "Path to the file" }
+                                Name = "count_file_lines"
+                                Script = "@(data.filepath(\"tools/1.0.0\", \"count_file_lines.py\"))"
+                                Description = "Count the number of lines in a file"
+                                Parameters {
+                                        ["file_path"] { Required = true; Type = "string"; Description = "Path to the file" }
                                 }
                         }
                 }
 
 
                 // Scenario block can take multiple prompts and roles to be added to this LLM session.
-                scenario {
+                Scenario {
                         new {
-                                role = "assistant"
-                                prompt = "You are a helpful and informative AI assistant."
+                                Role = "assistant"
+                                Prompt = "You are a helpful and informative AI assistant."
                         }
                         new {
-                                role = "system"
-                                prompt = "Use tools to perform calculations or string operations"
+                                Role = "system"
+                                Prompt = "Use tools to perform calculations or string operations"
                         }
                  }
 
@@ -133,11 +133,11 @@ run {
                 }
 
                 // Specify the files that this LLM will process.
-                files {
+                Files {
                         // "@(request.files()[0])"
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the llm session.
-                timeoutDuration = 300.s
+                TimeoutDuration = 300.s
         }
 }

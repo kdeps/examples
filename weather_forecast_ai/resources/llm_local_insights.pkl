@@ -1,26 +1,26 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "llmLocalInsights"
-name = "AI Helper for Output"
-description = "An AI helper to generate a polished output using LLM."
-category = ""
-requires {
+ActionID = "llmLocalInsights"
+Name = "AI Helper for Output"
+Description = "An AI helper to generate a polished output using LLM."
+Category = ""
+Requires {
     "llmWeatherReport"
 }
-run {
-        skipCondition {
+Run {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
         }
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                 }
                 // Custom error message and code to be used if the preflight check fails.
-                error {
-                        code = 0
-                        message = ""
+                Error {
+                        Code = 0
+                        Message = ""
                 }
         }
 
@@ -41,9 +41,9 @@ run {
         //
         // Note: Each resource is restricted to a single dedicated action. Combining multiple
         // actions within the same resource is not allowed.
-        chat {
-                model = "llama3.1" // This LLM model needs to be defined in the workflow
-                prompt = """
+        Chat {
+                Model = "llama3.1" // This LLM model needs to be defined in the workflow
+                Prompt = """
                 Without prefacing it with anything, giving explanations or justifications, present a concise,
                 plain-language summary the local insights based on the data provided. Write in three or more paragraphs,
                 focusing on Seasonal Attractions: Highlight ice rinks in winter or flower markets in spring. Photogenic
@@ -62,11 +62,11 @@ run {
                 JSONResponseKeys {}
 
                 // Specify the files that this LLM will process.
-                files {
+                Files {
                         // "@(request.files()[0])"
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the llm session.
-                timeoutDuration = 60.s
+                TimeoutDuration = 600.s
         }
 }

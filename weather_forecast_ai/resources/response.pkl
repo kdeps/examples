@@ -1,13 +1,14 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "APIResponse"
-name = "API Response Resource"
-description = "This resource provides a JSON response through the API."
-category = ""
+ActionID = "APIResponse"
+Name = "API Response Resource"
+Description = "This resource provides a JSON response through the API."
+Category = ""
 
 // Define the ID of any dependency resource that must be executed before this resource.
 // For example "aiChatResource1"
-requires {
+Requires {
+        "HTTPClient"
         "llmWeatherReport"
         "llmHistoricalAverages"
         "llmTourism"
@@ -20,48 +21,58 @@ requires {
         "llmDining"
 }
 
-run {
-        skipCondition {
+Run {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
         }
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                 }
                 // Custom error message and code to be used if the preflight check fails.
-                error {
-                        code = 0
-                        message = ""
+                Error {
+                        Code = 0
+                        Message = ""
                 }
         }
 
-        local JSONResponseMapping = new Mapping {
-                ["weather"] = "@(llm.response("llmWeatherReport"))"
-                ["historical_averages"] = "@(llm.response("llmHistoricalAverages"))"
-                ["tourism_insights"] = "@(llm.response("llmTourism"))"
-                ["travel_tips"] = "@(llm.response("llmTravel"))"
-                ["health_advice"] = "@(llm.response("llmHealth"))"
-                ["local_insights"] = "@(llm.response("llmLocalInsights"))"
-                ["fitness_options"] = "@(llm.response("llmFitness"))"
-                ["activities"] = "@(llm.response("llmActivities"))"
-                ["utilities_info"] = "@(llm.response("llmUtility"))"
-                ["dining_recommendations"] = "@(llm.response("llmDining"))"
-        }
-
+        // Initializes an api response for this agent.
+        //
+        // This resource action is straightforward. It
+        // creates a JSON response with the following shape
+        //
+        // {
+        //   "success": true,
+        //   "response": {
+        //     "data": [],
+        //   },
+        //   "errors": [{
+        //     "code": 0,
+        //     "message": ""
+        //   }]
+        // }
+        //
         APIResponse {
-                success = true
-                response {
-                        data {
-                                JSONResponseMapping
+                Success = true
+                Response {
+                        Data {
+                                new Mapping {
+                                        ["api"] = "@(client.responseBody("HTTPClient"))"
+                                        ["weather"] = "@(llm.response("llmWeatherReport"))"
+                                        ["historical_averages"] = "@(llm.response("llmHistoricalAverages"))"
+                                        ["tourism_insights"] = "@(llm.response("llmTourism"))"
+                                        ["travel_tips"] = "@(llm.response("llmTravel"))"
+                                        ["health_advice"] = "@(llm.response("llmHealth"))"
+                                        ["local_insights"] = "@(llm.response("llmLocalInsights"))"
+                                        ["fitness_options"] = "@(llm.response("llmFitness"))"
+                                        ["activities"] = "@(llm.response("llmActivities"))"
+                                        ["utilities_info"] = "@(llm.response("llmUtility"))"
+                                        ["dining_recommendations"] = "@(llm.response("llmDining"))"
+                                }
                         }
                 }
-                errors {
-                        new {
-                                code = 0
-                                message = ""
-                        }
-                }
+                Errors {}
         }
 }

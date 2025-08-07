@@ -1,24 +1,24 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "llmInput"
-name = "AI Helper for Input"
-description = "An AI helper to parse input into structured data"
-category = ""
-requires {}
-run {
-        skipCondition {
+ActionID = "llmInput"
+Name = "AI Helper for Input"
+Description = "An AI helper to parse input into structured data"
+Category = ""
+Requires {}
+Run {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
         }
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                 }
                 // Custom error message and code to be used if the preflight check fails.
-                error {
-                        code = 0
-                        message = ""
+                Error {
+                        Code = 0
+                        Message = ""
                 }
         }
 
@@ -39,9 +39,9 @@ run {
         //
         // Note: Each resource is restricted to a single dedicated action. Combining multiple
         // actions within the same resource is not allowed.
-        chat {
-                model = "llama3.1" // This LLM model needs to be defined in the workflow
-                prompt = """
+        Chat {
+                Model = "llama3.1" // This LLM model needs to be defined in the workflow
+                Prompt = """
                 Extract the longitude, latitude, and timezone
                 from this text. An example of timezone is Asia/Manila.
                 @(request.params("q"))?
@@ -59,11 +59,11 @@ run {
                 }
 
                 // Specify the files that this LLM will process.
-                files {
+                Files {
                         // "@(request.files()[0])"
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the llm session.
-                timeoutDuration = 60.s
+                TimeoutDuration = 600.s
         }
 }

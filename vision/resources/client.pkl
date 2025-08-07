@@ -1,18 +1,18 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "httpResource"
-name = "HTTP Client"
-description = "This resource allows for making API requests using an HTTP client."
-category = ""
-requires {
+ActionID = "httpResource"
+Name = "HTTP Client"
+Description = "This resource allows for making API requests using an HTTP client."
+Category = ""
+Requires {
         // Define the ID of any dependency resource that must be executed before this resource.
 }
-run {
+Run {
         // restrictToHTTPMethods specifies the HTTP methods required for the request.
         // If none are specified, all HTTP methods are permitted. This restriction is only
         // in effect when APIServerMode is enabled. If the request method is not in this list,
         // the action will be skipped.
-        restrictToHTTPMethods {
+        RestrictToHTTPMethods {
             "GET"
         }
 
@@ -20,30 +20,30 @@ run {
         // If none are specified, all routes are permitted. This restriction is only
         // in effect when APIServerMode is enabled. If the request path is not in this list,
         // the action will be skipped.
-        restrictToRoutes {
+        RestrictToRoutes {
             "/api/v1/vision"
         }
 
         // allowedHeaders specifies the permitted HTTP headers for the request.
         // If none are specified, all headers are allowed. This restriction is only
         // in effect when APIServerMode is enabled.
-        allowedHeaders {
+        AllowedHeaders {
             // "X-API-KEY"
         }
 
         // allowedParams specifies the permitted query parameters for the request.
         // If none are specified, all parameters are allowed. This restriction is only
         // in effect when APIServerMode is enabled.
-        allowedParams {}
+        AllowedParams {}
 
-        skipCondition {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
                 // "@(request.path)" != "/api/v1/vision" && "@(request.method)" != "GET"
         }
 
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                         // "@(request.header("X-API-KEY"))" != ""
@@ -51,9 +51,9 @@ run {
                 //
                 // Custom error message and code to be returned immediately if the preflight check fails.
                 //
-                // error {
-                //         code = 0
-                //         message = ""
+                // Error {
+                //         Code = 0
+                //         Message = ""
                 // }
         }
 
@@ -61,7 +61,7 @@ run {
         // expressions that produce side effects, such as updating resources or triggering actions, but also supports
         // general-purpose evaluation of any valid PKL expression, making it a place for inline logic and
         // scripting within a configuration.
-        expr {
+        Expr {
                 // "@(memory.setItem("foo", "bar"))" // Persistent data
                 // "@(memory.clear())"
                 // "@(session.setItem("foo", "bar"))" // Temporary data only for this request
@@ -86,16 +86,16 @@ run {
         // Note: Each resource is restricted to a single dedicated action. Combining multiple
         // actions within the same resource is not allowed.
         HTTPClient {
-                method = "GET"  // Specifies the HTTP method to be used for the request.
-                url = ""        // The URL endpoint for the HTTP request.
-                data {
+                Method = "GET"  // Specifies the HTTP method to be used for the request.
+                Url = ""        // The URL endpoint for the HTTP request.
+                Data {
                         // Any data that will be sent with the HTTP request.
                 }
-                headers {
+                Headers {
                         // Headers to be included in the HTTP request.
                         // ["X-API-KEY"] = "@(request.header("X-API-KEY"))"  // Example header.
                 }
                 // Timeout duration in seconds. This specifies when to terminate the request.
-                timeoutDuration = 60.s
+                TimeoutDuration = 60.s
         }
 }

@@ -1,19 +1,19 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
 
-actionID = "pythonResource"
-name = "Python Resource"
-description = "This resource creates a python script session."
-category = ""
-requires {
+ActionID = "pythonResource"
+Name = "Python Resource"
+Description = "This resource creates a python script session."
+Category = ""
+Requires {
         "execResource"
 }
-run {
-        skipCondition {
+Run {
+        SkipCondition {
                 // Conditions under which the execution of this resource should be skipped.
                 // If any evaluated condition returns true, the resource execution will be bypassed.
         }
-        preflightCheck {
-                validations {
+        PreflightCheck {
+                Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
                         //
@@ -22,9 +22,9 @@ run {
                         // read("file:/agent/workflow/data/%s/1.0.0/file.txt").text != "" && read("file:/agent/workflow/data/%s/1.0.0/file.txt").base64 != ""
                 }
                 // Custom error message and code to be used if the preflight check fails.
-                error {
-                        code = 500
-                        message = "Data file file.txt not found!"
+                Error {
+                        Code = 500
+                        Message = "Data file file.txt not found!"
                 }
         }
 
@@ -55,22 +55,22 @@ run {
         local pythonScriptPath = "@(data.filepath("huggingface_imagegen_api/1.0.0", "sdxl_base_1_0.py"))"
         local pythonScript = "@(read?("\(pythonScriptPath)")?.text)"
 
-        python {
+        Python {
                 // Specifies the conda environment in which this Python script will execute, if Anaconda is
                 // installed.
-                condaEnvironment = "base"
+                CondaEnvironment = "base"
 
-                script =
+                Script =
 """
 \(pythonScript)
 """
-                env {
+                Env {
                         ["PROMPT"] = "@(request.params("q"))"
                         ["HF_TOKEN"] = read("env:HF_TOKEN")
                         ["HF_HOME"] = read("env:HF_HOME")
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the shell exec.
-                timeoutDuration = 0.s
+                TimeoutDuration = 0.s
         }
 }

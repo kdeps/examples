@@ -1,26 +1,26 @@
-amends "package://schema.kdeps.com/core@0.2.27#/Workflow.pkl"
+amends "package://schema.kdeps.com/core@0.2.42#/Workflow.pkl"
 
-name = "huggingface_imagegen_api"
-description = "AI Image Generation API"
-website = ""
-authors {}
-documentation = ""
-repository = ""
-heroImage = ""
-agentIcon = ""
+AgentID = "huggingface_imagegen_api"
+Description = "AI Image Generation API"
+Website = ""
+Authors {}
+Documentation = ""
+Repository = ""
+HeroImage = ""
+AgentIcon = ""
 
 // Version is Required
-version = "1.0.0"
+Version = "1.0.0"
 
 // This section defines the default resource targetActionID that will be executed
 // when this API resource is called.
-targetActionID = "responseResource"
+TargetActionID = "responseResource"
 
 // Specify any external resources to use in this AI Agent.
 // For example, you can refer to another agent with "@agentName".
-workflows {}
+Workflows {}
 
-settings {
+Settings {
         // When set to false, the agent runs in standalone mode, executing once
         // when the Docker container starts and then stops after all resources
         // have been processed.
@@ -55,16 +55,16 @@ settings {
         // retrieved only after the result is ready.
         APIServer {
                 // Set the host IP address and port number for the AI Agent.
-                hostIP = "127.0.0.1"
-                portNum = 3000
+                HostIP = "127.0.0.1"
+                PortNum = 3000
 
                 // You can define multiple routes for this agent. Each route points to
                 // the main targetActionID specified in the targetActionID setting, so you must define
                 // your skip condition on the resources appropriately.
-                routes {
+                Routes {
                         new {
-                                path = "/api/v1/imagegen"
-                                methods {
+                                Path = "/api/v1/imagegen"
+                                Methods {
                                         "GET" // Allows submitting data
                                 }
                         }
@@ -73,12 +73,12 @@ settings {
 
         // This section contains the agent settings that will be used to build
         // the agent's Docker image.
-        agentSettings {
+        AgentSettings {
                 // Specify if Anaconda will be installed (Warning: Docker image size will grow to ~20Gb)
-                installAnaconda = false
+                InstallAnaconda = false
 
                 // Conda packages to be installed if installAnaconda is true
-                condaPackages {
+                CondaPackages {
                         // The environment is defined here.
                         // ["base"] {
                         // Mapped to the conda channel and package name
@@ -89,7 +89,7 @@ settings {
                 }
 
                 // List of preinstalled Python packages.
-                pythonPackages {
+                PythonPackages {
                         "diffusers"
                         "torch"
                         "huggingface_hub[cli]"
@@ -102,20 +102,20 @@ settings {
 
                 // Specify the custom Ubuntu repo or PPA repos that would contain the packages available
                 // for this image.
-                repositories {
+                Repositories {
                         // "ppa:alex-p/tesseract-ocr-devel"
                 }
 
                 // Specify the Ubuntu packages that should be pre-installed when
                 // building this image.
-                packages {
+                Packages {
                         // "tesseract-ocr"
                         // "poppler-utils"
                 }
 
                 // List the local Ollama LLM models that will be pre-installed.
                 // You can specify multiple models here.
-                models {
+                Models {
                         // "tinydolphin"
                         //"llama3.1"
                         // "llama3.2-vision"
@@ -123,15 +123,15 @@ settings {
                 }
 
                 // The Ollama image tag version to be used as a base Docker image for this AI agent.
-                ollamaImageTag = "0.6.8"
+                OllamaImageTag = "0.9.6"
 
                 // A mapping of build argument variable names.
-                args {
+                Args {
                         ["HF_TOKEN"] = "secret"
                 }
 
                 // A mapping of environment variable names for the build that persist in both the image and the container.
-                env {
+                Env {
                         ["HF_HOME"] = "/.kdeps//huggingface"
                 }
         }
