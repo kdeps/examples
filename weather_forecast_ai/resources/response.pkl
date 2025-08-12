@@ -59,17 +59,39 @@ Run {
                 Response {
                         Data {
                                 new Mapping {
-                                        ["api"] = "@(client.responseBody("HTTPClient"))"
-                                        ["weather"] = "@(llm.response("llmWeatherReport"))"
-                                        ["historical_averages"] = "@(llm.response("llmHistoricalAverages"))"
-                                        ["tourism_insights"] = "@(llm.response("llmTourism"))"
-                                        ["travel_tips"] = "@(llm.response("llmTravel"))"
-                                        ["health_advice"] = "@(llm.response("llmHealth"))"
-                                        ["local_insights"] = "@(llm.response("llmLocalInsights"))"
-                                        ["fitness_options"] = "@(llm.response("llmFitness"))"
-                                        ["activities"] = "@(llm.response("llmActivities"))"
-                                        ["utilities_info"] = "@(llm.response("llmUtility"))"
-                                        ["dining_recommendations"] = "@(llm.response("llmDining"))"
+                                        ["api"] = """
+@(client.responseBody("HTTPClient"))
+"""
+                                        ["weather"] = """
+@(llm.response("llmWeatherReport"))
+"""
+                                        ["historical_averages"] = """
+@(llm.response("llmHistoricalAverages"))
+"""
+                                        ["tourism_insights"] = """
+@(llm.response("llmTourism"))
+"""
+                                        ["travel_tips"] = """
+@(llm.response("llmTravel"))
+"""
+                                        ["health_advice"] = """
+@(llm.response("llmHealth"))
+"""
+                                        ["local_insights"] = """
+@(llm.response("llmLocalInsights"))
+"""
+                                        ["fitness_options"] = """
+@(llm.response("llmFitness"))
+"""
+                                        ["activities"] = """
+@(llm.response("llmActivities"))
+"""
+                                        ["utilities_info"] = """
+@(llm.response("llmUtility"))
+"""
+                                        ["dining_recommendations"] = """
+@(llm.response("llmDining"))
+"""
                                 }
                         }
                 }

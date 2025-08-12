@@ -52,8 +52,12 @@ Run {
         // Note: Each resource is restricted to a single dedicated targetActionID. Combining multiple
         // targetActionIDs within the same resource is not allowed.
 
-        local pythonScriptPath = "@(data.filepath("huggingface_imagegen_api/1.0.0", "sdxl_base_1_0.py"))"
-        local pythonScript = "@(read?("\(pythonScriptPath)")?.text)"
+        local pythonScriptPath = """
+@(data.filepath("huggingface_imagegen_api/1.0.0", "sdxl_base_1_0.py"))
+"""
+        local pythonScript = """
+@(read?("\(pythonScriptPath)")?.text)
+"""
 
         Python {
                 // Specifies the conda environment in which this Python script will execute, if Anaconda is
@@ -65,9 +69,11 @@ Run {
 \(pythonScript)
 """
                 Env {
-                        ["PROMPT"] = "@(request.params("q"))"
-                        ["HF_TOKEN"] = read("env:HF_TOKEN")
-                        ["HF_HOME"] = read("env:HF_HOME")
+                        ["PROMPT"] = """
+@(request.params("q"))
+"""
+                        ["HF_TOKEN"] = read?("env:HF_TOKEN") ?? ""
+                        ["HF_HOME"] = read?("env:HF_HOME") ?? ""
                 }
 
                 // Timeout duration in seconds. This specifies when to terminate the shell exec.

@@ -48,7 +48,9 @@ Run {
                 Success = true
                 Response {
                         Data {
-                                "@(llm.response("llmResource"))"
+                                """
+@(llm.response("llmResource"))
+"""
                         }
                 }
                 Errors {}

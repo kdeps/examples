@@ -90,7 +90,9 @@ Run {
                 // This LLM role context for this prompt. For example, "user", "assistant" or "system".
                 // If none is provided, "human" will be used.
                 Role = "user"
-                Prompt = "@(request.params("q"))?"
+                Prompt = """
+@(request.params("q"))?
+"""
 
                 // Scenario block can take multiple prompts and roles to be added to this LLM session.
                 Scenario {

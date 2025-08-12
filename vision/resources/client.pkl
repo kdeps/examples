@@ -46,7 +46,9 @@ Run {
                 Validations {
                         // This section expects boolean validations.
                         // If any validation returns false, an exception will be thrown before proceeding to the next step.
-                        // "@(request.header("X-API-KEY"))" != ""
+                        // """
+                        //         @(request.header("X-API-KEY"))
+                        // """ != ""
                 }
                 //
                 // Custom error message and code to be returned immediately if the preflight check fails.
@@ -93,7 +95,9 @@ Run {
                 }
                 Headers {
                         // Headers to be included in the HTTP request.
-                        // ["X-API-KEY"] = "@(request.header("X-API-KEY"))"  // Example header.
+                        // ["X-API-KEY"] = """
+                        //         @(request.header("X-API-KEY"))
+                        // """  // Example header.
                 }
                 // Timeout duration in seconds. This specifies when to terminate the request.
                 TimeoutDuration = 60.s

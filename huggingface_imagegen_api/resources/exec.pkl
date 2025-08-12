@@ -9,7 +9,9 @@ Requires {
 }
 Run {
         SkipCondition {
-                "@(skip.ifFolderExists("file:/.kdeps//huggingface"))"
+                """
+@(skip.ifFolderExists("file:/.kdeps//huggingface"))
+"""
         }
         PreflightCheck {
                 Validations {
@@ -58,8 +60,8 @@ huggingface-cli login --token $HF_TOKEN
 huggingface-cli download stabilityai/stable-diffusion-xl-base-1.0
 """
                 Env {
-                        ["HF_TOKEN"] = read("env:HF_TOKEN")
-                        ["HF_HOME"] = read("env:HF_HOME")
+                        ["HF_TOKEN"] = read?("env:HF_TOKEN") ?? ""
+                        ["HF_HOME"] = read?("env:HF_HOME") ?? ""
                 }
                 // Timeout duration in seconds. This specifies when to terminate the shell exec.
                 TimeoutDuration = 0.s

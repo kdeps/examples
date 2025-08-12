@@ -45,7 +45,9 @@ Run {
         // }
         //
 
-        local generatedFileBase64 = "@(read?("/tmp/image.png")?.base64)"
+        local generatedFileBase64 = """
+@(read?("/tmp/image.png")?.base64)
+"""
         local responseJson = new Mapping {
                 ["file"] = "data:image/png;base64,\(generatedFileBase64)"
         }
