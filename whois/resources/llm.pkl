@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.42#/Resource.pkl"
+amends "package://schema.kdeps.com/core@0.2.43#/Resource.pkl"
 
 ActionID = "llmResource"
 Name = "LLM Chat Resource"

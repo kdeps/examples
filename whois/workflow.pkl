@@ -1,4 +1,4 @@
-amends "package://schema.kdeps.com/core@0.2.42#/Workflow.pkl"
+amends "package://schema.kdeps.com/core@0.2.43#/Workflow.pkl"
 
 AgentID = "whois"
 Description = "My AI Agent"
@@ -219,6 +219,11 @@ Settings {
                         // "llama3.2-vision"
                         // "llama3.2"
                 }
+
+                // When set to true, models are pulled during Docker build time and stored offline.
+                // At runtime, models are copied from the image to the shared volume instead of being downloaded.
+                // This enables true offline operation without internet connectivity.
+                OfflineMode = true
 
                 // The Ollama image tag version to be used as a base Docker image for this AI agent.
                 OllamaImageTag = "0.9.6"
